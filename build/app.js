@@ -6,7 +6,7 @@ const typeInput = productForm.querySelector("#type");
 const unitInput = productForm.querySelector("#unit");
 const dateInput = productForm.querySelector("#date");
 const senderInput = productForm.querySelector("#sender");
-const searchInput = document.querySelector("#searchInput"); // Corrected query
+const searchInput = document.querySelector("#searchInput");
 class Product {
     name;
     price;
@@ -39,7 +39,7 @@ productForm.addEventListener("submit", (e) => {
 });
 const renderProducts = (productsToRender) => {
     productList.innerHTML = "";
-    productsToRender.forEach(product => {
+    productsToRender.forEach((product, index) => {
         const li = document.createElement("li");
         li.classList.add("product-card");
         li.innerHTML = `
@@ -49,8 +49,17 @@ const renderProducts = (productsToRender) => {
       <p>Unit: ${product.unit}</p>
       <p>Sending Date: ${product.date}</p>
       <p>Sender: ${product.sender}</p>
+      <button class="clear-button" data-index="${index}">Clear</button>
     `;
         productList.append(li);
+    });
+    document.querySelectorAll(".clear-button").forEach((button) => {
+        button.addEventListener("click", (e) => {
+            const index = parseInt(e.target.getAttribute("data-index") || "0");
+            products.splice(index, 1);
+            localStorage.setItem("products", JSON.stringify(products));
+            renderProducts(products);
+        });
     });
 };
 renderProducts(products);

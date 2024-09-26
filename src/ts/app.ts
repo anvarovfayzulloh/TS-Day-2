@@ -6,7 +6,7 @@ const typeInput = productForm.querySelector("#type") as HTMLInputElement;
 const unitInput = productForm.querySelector("#unit") as HTMLInputElement;
 const dateInput = productForm.querySelector("#date") as HTMLInputElement;
 const senderInput = productForm.querySelector("#sender") as HTMLInputElement;
-const searchInput = document.querySelector("#searchInput") as HTMLInputElement; // Corrected query
+const searchInput = document.querySelector("#searchInput") as HTMLInputElement;
 
 class Product {
   name: string;
@@ -42,12 +42,12 @@ productForm.addEventListener("submit", (e) => {
 
   products.push(newProduct);
   localStorage.setItem("products", JSON.stringify(products));
-  nameInput.value=""
-  priceInput.value=""
-  typeInput.value=""
-  unitInput.value=""
-  dateInput.value=""
-  senderInput.value=""
+  nameInput.value = "";
+  priceInput.value = "";
+  typeInput.value = "";
+  unitInput.value = "";
+  dateInput.value = "";
+  senderInput.value = "";
 
   renderProducts(products);
 });
@@ -55,7 +55,7 @@ productForm.addEventListener("submit", (e) => {
 const renderProducts = (productsToRender: Product[]) => {
   productList.innerHTML = "";
 
-  productsToRender.forEach(product => {
+  productsToRender.forEach((product, index) => {
     const li = document.createElement("li");
     li.classList.add("product-card");
     li.innerHTML = `
@@ -65,8 +65,18 @@ const renderProducts = (productsToRender: Product[]) => {
       <p>Unit: ${product.unit}</p>
       <p>Sending Date: ${product.date}</p>
       <p>Sender: ${product.sender}</p>
+      <button class="clear-button" data-index="${index}">Clear</button>
     `;
     productList.append(li);
+  });
+
+  document.querySelectorAll(".clear-button").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const index = parseInt((e.target as HTMLButtonElement).getAttribute("data-index") || "0");
+      products.splice(index, 1);
+      localStorage.setItem("products", JSON.stringify(products));
+      renderProducts(products);
+    });
   });
 };
 
