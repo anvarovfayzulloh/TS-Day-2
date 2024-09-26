@@ -42,6 +42,12 @@ productForm.addEventListener("submit", (e) => {
 
   products.push(newProduct);
   localStorage.setItem("products", JSON.stringify(products));
+  nameInput.value=""
+  priceInput.value=""
+  typeInput.value=""
+  unitInput.value=""
+  dateInput.value=""
+  senderInput.value=""
 
   renderProducts(products);
 });
@@ -68,11 +74,11 @@ renderProducts(products);
 
 searchInput.addEventListener("input", () => {
   const searchTerm = searchInput.value.toLowerCase();
-  const filteredProducts = products.filter(product => 
-    product.name.toLowerCase().includes(searchTerm) || 
-    product.type.toLowerCase().includes(searchTerm) || 
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm) ||
+    product.type.toLowerCase().includes(searchTerm) ||
     product.sender.toLowerCase().includes(searchTerm)
   );
 
-  renderProducts(filteredProducts); 
+  renderProducts(filteredProducts);
 });

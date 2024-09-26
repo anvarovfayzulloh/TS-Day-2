@@ -29,6 +29,12 @@ productForm.addEventListener("submit", (e) => {
     const newProduct = new Product(nameInput.value, priceInput.value, typeInput.value, unitInput.value, dateInput.value, senderInput.value);
     products.push(newProduct);
     localStorage.setItem("products", JSON.stringify(products));
+    nameInput.value = "";
+    priceInput.value = "";
+    typeInput.value = "";
+    unitInput.value = "";
+    dateInput.value = "";
+    senderInput.value = "";
     renderProducts(products);
 });
 const renderProducts = (productsToRender) => {
