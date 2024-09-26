@@ -1,3 +1,4 @@
+"use strict";
 const productForm = document.querySelector("#productForm");
 const productList = document.querySelector("#productList");
 const nameInput = productForm.querySelector("#name");
@@ -8,12 +9,6 @@ const dateInput = productForm.querySelector("#date");
 const senderInput = productForm.querySelector("#sender");
 const searchInput = document.querySelector("#searchInput");
 class Product {
-    name;
-    price;
-    type;
-    unit;
-    date;
-    sender;
     constructor(name, price, type, unit, date, sender) {
         this.name = name;
         this.price = price;
@@ -49,11 +44,11 @@ const renderProducts = (productsToRender) => {
       <p>Unit: ${product.unit}</p>
       <p>Sending Date: ${product.date}</p>
       <p>Sender: ${product.sender}</p>
-      <button class="clear-button" data-index="${index}">Clear</button>
+      <button class="delete-button" data-index="${index}">Clear</button>
     `;
         productList.append(li);
     });
-    document.querySelectorAll(".clear-button").forEach((button) => {
+    document.querySelectorAll(".delete-button").forEach((button) => {
         button.addEventListener("click", (e) => {
             const index = parseInt(e.target.getAttribute("data-index") || "0");
             products.splice(index, 1);
